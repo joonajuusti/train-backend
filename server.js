@@ -21,15 +21,21 @@ const users = [
   },
 ];
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use(bodyParser.json());
 
 app.get('/users', (req, res) => {
   res.json(users);
 });
 
-app.post('/users'), (req, res) => {
+app.post('/users', (req, res) => {
   users.push(req.body);
   res.json(req.body);
-}
+});
 
 app.listen(8080, () => console.log("Server listening port 8080"));
