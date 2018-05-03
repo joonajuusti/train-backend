@@ -18,7 +18,7 @@ const users = [
     username: 'user',
     password: 'user',
     admin: false
-  },
+  }
 ];
 
 app.use((req, res, next) => {
@@ -37,5 +37,12 @@ app.post('/users', (req, res) => {
   users.push(req.body);
   res.json(req.body);
 });
+
+app.put('/users', (req, res) => {
+  users.find(item => {
+    return item.username == req.body.username
+  }).password = req.body.password;
+  res.json(req.body);
+})
 
 app.listen(8080, () => console.log("Server listening port 8080"));
