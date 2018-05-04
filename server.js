@@ -10,14 +10,18 @@ const users = [
     lastName: 'admin',
     username: 'admin',
     password: 'admin',
-    admin: true
+    admin: true,
+    creditCard: '1234',
+    address: 'Admin Street 1'
   },
   {
     firstName: 'user',
     lastName: 'user',
     username: 'user',
     password: 'user',
-    admin: false
+    admin: false,
+    creditCard: '4321',
+    address: 'User Avenue 1'
   }
 ];
 
