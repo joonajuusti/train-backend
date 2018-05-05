@@ -27,6 +27,15 @@ const users = [
 
 const routes = [];
 
+const locomotives = [
+  { id: 'UTU666' },
+  { id: 'LOL420' }
+];
+
+const railroadCars = [];
+
+const trains = [];
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -61,6 +70,33 @@ app.post('/routes', (req, res) => {
 
 app.get('/routes', (req, res) => {
   res.json(routes);
+});
+
+app.get('/locomotives', (req, res) => {
+  res.json(locomotives);
+});
+
+app.post('/locomotives', (req, res) => {
+  locomotives.push(req.body);
+  res.json(req.body);
+});
+
+app.get('/railroadCars', (req, res) => {
+  res.json(railroadCars);
+});
+
+app.post('/railroadCars', (req, res) => {
+  railroadCars.push(req.body);
+  res.json(req.body);
+});
+
+app.get('/trains', (req, res) => {
+  res.json(trains);
+});
+
+app.post('/trains', (req, res) => {
+  trains.push(req.body);
+  res.json(req.body);
 });
 
 app.listen(8080, () => console.log("Server listening port 8080"));
