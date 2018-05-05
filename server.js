@@ -25,6 +25,8 @@ const users = [
   }
 ];
 
+const routes = [];
+
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -43,10 +45,22 @@ app.post('/users', (req, res) => {
 });
 
 app.put('/users', (req, res) => {
-  users.find(item => {
+  let user = users.find(item => {
     return item.username == req.body.username
-  }).password = req.body.password;
+  })
+  user.password = req.body.password;
+  user.creditCard = req.body.creditCard;
+  user.address = req.body.address;
   res.json(req.body);
-})
+});
+
+app.post('/routes', (req, res) => {
+  routes.push(req.body);
+  res.json(req.body);
+});
+
+app.get('/routes', (req, res) => {
+  res.json(routes);
+});
 
 app.listen(8080, () => console.log("Server listening port 8080"));
