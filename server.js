@@ -29,10 +29,19 @@ const routes = [];
 
 const locomotives = [
   { id: 'UTU666' },
-  { id: 'LOL420' }
+  { id: 'JEJ812' }
 ];
 
-const railroadCars = [];
+const railroadCars = [
+  {
+    modelName: 'RRC1',
+    numberOfRows: 10
+  },
+  {
+    modelName: 'RRC2',
+    numberOfRows: 15
+  }
+];
 
 const trains = [];
 
@@ -81,11 +90,11 @@ app.post('/locomotives', (req, res) => {
   res.json(req.body);
 });
 
-app.get('/railroadCars', (req, res) => {
+app.get('/railroadcars', (req, res) => {
   res.json(railroadCars);
 });
 
-app.post('/railroadCars', (req, res) => {
+app.post('/railroadcars', (req, res) => {
   railroadCars.push(req.body);
   res.json(req.body);
 });
