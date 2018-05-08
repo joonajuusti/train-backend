@@ -35,11 +35,11 @@ const locomotives = [
 const railroadCars = [
   {
     modelName: 'RRC1',
-    numberOfRows: 10
+    numberOfRows: 4
   },
   {
     modelName: 'RRC2',
-    numberOfRows: 15
+    numberOfRows: 6
   }
 ];
 
@@ -65,7 +65,7 @@ app.post('/users', (req, res) => {
 app.put('/users', (req, res) => {
   let user = users.find(item => {
     return item.username == req.body.username
-  })
+  });
   user.password = req.body.password;
   user.creditCard = req.body.creditCard;
   user.address = req.body.address;
@@ -80,6 +80,15 @@ app.post('/routes', (req, res) => {
 app.get('/routes', (req, res) => {
   res.json(routes);
 });
+
+app.put('/routes', (req, res) => {
+  let route = routes.find(item => {
+    return item.id = req.body.id;
+  });
+  route.seatsTaken = req.body.seatsTaken;
+  route.availableSeats = req.body.availableSeats;
+  res.json(req.body);
+})
 
 app.get('/locomotives', (req, res) => {
   res.json(locomotives);
