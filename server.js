@@ -43,7 +43,28 @@ const railroadCars = [
   }
 ];
 
-const trains = [];
+const trains = [
+  {
+    name: 'T1',
+    locomotive: 'UTU666',
+    railroadCar: {
+      modelName: 'RRC1',
+      numberOfRows: 4
+    },
+    railroadCarAmount: 2
+  },
+  {
+    name: 'T2',
+    locomotive: 'UTU666',
+    railroadCar: {
+      modelName: 'RRC2',
+      numberOfRows: 6
+    },
+    railroadCarAmount: 3
+  }
+];
+
+const purchases = [];
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -63,8 +84,8 @@ app.post('/users', (req, res) => {
 });
 
 app.put('/users', (req, res) => {
-  let user = users.find(item => {
-    return item.username == req.body.username
+  let user = users.find(user => {
+    return user.username === req.body.username
   });
   user.password = req.body.password;
   user.creditCard = req.body.creditCard;
@@ -82,8 +103,8 @@ app.get('/routes', (req, res) => {
 });
 
 app.put('/routes', (req, res) => {
-  let route = routes.find(item => {
-    return item.id = req.body.id;
+  let route = routes.find(route => {
+    return route.id === req.body.id;
   });
   route.seatsTaken = req.body.seatsTaken;
   route.availableSeats = req.body.availableSeats;
@@ -114,6 +135,36 @@ app.get('/trains', (req, res) => {
 
 app.post('/trains', (req, res) => {
   trains.push(req.body);
+  res.json(req.body);
+});
+
+app.get('/purchases', (req, res) => {
+  res.json(purchases);
+});
+
+app.post('/purchases', (req, res) => {
+  purchases.push(req.body);
+  res.json(req.body);
+});
+
+app.put('/purchases', (req, res) => {
+  let reqString = JSON.stringify(req.body);
+  let purchase = purchases.find(purchase => {
+    return JSON.stringify(purchase) == reqString;
+  });
+  let index = purchases.indexOf(purchase);
+  purchases.splice(index, 1);
+
+  let route = routes.find(route => {
+    return route.id === req.body.route.id;
+  });
+  let railroadCarNumber = purchase.railroadCarNumber;
+  console.log(route);
+  for(let seatNumber of purchase.seats) {
+    let seatIndex = route.seatsTaken[railroadCarNumber].indexOf(seatNumber);
+    route.seatsTaken[railroadCarNumber].splice(seatIndex, 1);
+    route.availableSeats++;
+  }
   res.json(req.body);
 });
 
