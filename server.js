@@ -25,8 +25,6 @@ const users = [
   }
 ];
 
-const routes = [];
-
 const locomotives = [
   { id: 'UTU666' },
   { id: 'JEJ812' }
@@ -63,6 +61,43 @@ const trains = [
     railroadCarAmount: 3
   }
 ];
+
+const routes = [];
+
+const dummyDepartureCities = ['TURKU', 'TAMPERE'];
+const dummyArrivalCities = ['HELSINKI', 'JYVÄSKYLÄ'];
+
+let route;
+let train;
+let departureCity;
+let arrivalCity;
+let dateNow = new Date();
+let routeDate;
+
+for(let i = 0; i < 1000; i++) {
+  route = {};
+  train = trains[Math.floor(Math.random() * 2)];
+  departureCity = dummyDepartureCities[Math.floor(Math.random() * 2)];
+  arrivalCity = dummyArrivalCities[Math.floor(Math.random() * 2)];
+  routeDate = new Date(dateNow.valueOf() + Math.floor(Math.random() * 604800000))
+
+  route['train'] = train;
+  route['departureCity'] = departureCity;
+  route['arrivalCity'] = arrivalCity;
+  route['departureTime'] = routeDate;
+  route['arrivalTime'] = new Date(routeDate.valueOf() + Math.floor(Math.random() * 4800000 + 600000));
+  route['pricePerSeat'] = Math.floor(Math.random() * 10 + 1)
+  route['wayStations'] = null;
+  route['availableSeats'] = train.railroadCarAmount * train.railroadCar.numberOfRows * 6;
+  route['seatsTaken'] = new Array(train.railroadCarAmount);
+  for(let num = 0; num < route.seatsTaken.length; num++) {
+    route.seatsTaken[num] = [];
+  }
+  route['id'] = i;
+  routes.push(route);
+}
+
+console.log(routes)
 
 const purchases = [];
 
